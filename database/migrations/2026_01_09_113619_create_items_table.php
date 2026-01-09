@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('sku');
+            $table->uuid('sku');
             $table->integer('qty');
             $table->decimal('price',5,2);
             $table->boolean('status')->default(true);
