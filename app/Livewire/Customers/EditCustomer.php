@@ -6,6 +6,8 @@ use App\Models\Customer;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Schemas\Schema;
@@ -31,14 +33,22 @@ class EditCustomer extends Component implements HasActions, HasSchemas
     {
         return $schema
             ->components([
-                TextInput::make('name')
-                    ->required(),
-                TextInput::make('email')
-                    ->label('Email address')
-                    ->email(),
-                TextInput::make('phone')
-                    ->tel()
-                    ->required(),
+                Section::make('Edit Customer')
+                    ->schema([
+                        TextInput::make('name')
+                            ->required()
+                            ->unique(ignoreRecord: true),
+                        TextInput::make('email')
+                            ->label('Email address')
+                            ->email(),
+                        TextInput::make('phone')
+                            ->tel()
+                            ->required(),
+                        TextInput::make('password')
+                            ->password()
+                            ->revealable()
+                            ->unique(ignoreRecord: true)
+                    ])
             ])
             ->statePath('data')
             ->model($this->record);
@@ -49,6 +59,11 @@ class EditCustomer extends Component implements HasActions, HasSchemas
         $data = $this->form->getState();
 
         $this->record->update($data);
+        Notification::make()
+            ->title('Customer Updated')
+            ->body('Customer Updated Successfully')
+            ->success()
+            ->send();
     }
 
     public function render(): View

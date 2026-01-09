@@ -27,7 +27,7 @@ class ListPaymentMethods extends Component implements HasActions, HasSchemas, Ha
     public function table(Table $table): Table
     {
         return $table
-            ->query(fn (): Builder => PaymentMethod::query())
+            ->query(fn(): Builder => PaymentMethod::query())
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
@@ -46,7 +46,10 @@ class ListPaymentMethods extends Component implements HasActions, HasSchemas, Ha
                 //
             ])
             ->headerActions([
-                //
+                Action::make('add')
+                    ->url(fn(): string => route('payment.method.create'))
+                    ->label('Add Payment Method')
+                    ->icon('heroicon-o-plus'),
             ])
             ->recordActions([
                 Action::make('delete')
@@ -61,7 +64,9 @@ class ListPaymentMethods extends Component implements HasActions, HasSchemas, Ha
                             ->success()
                     ),
                 Action::make('edit')
-                    ->url(fn(PaymentMethod $paymentMethod): string => route('payment.method.update', $paymentMethod)),
+                    ->url(fn(PaymentMethod $paymentMethod): string => route('payment.method.update', $paymentMethod))
+                    ->label('')
+                    ->icon('heroicon-o-pencil-square'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

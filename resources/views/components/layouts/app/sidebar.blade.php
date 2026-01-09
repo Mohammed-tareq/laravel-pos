@@ -17,23 +17,23 @@
                                wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
         </flux:navlist.group>
         <flux:navlist.group :heading="__('Management ')" class="grid">
-            <flux:navlist.item icon="home" :href="route('customers.index')"
+            <flux:navlist.item icon="user-group" :href="route('customers.index')"
                                :current="request()->routeIs('customers.index')"
                                wire:navigate>{{ __('Manage Customer') }}</flux:navlist.item>
-            <flux:navlist.item icon="home" :href="route('payment.method.index')"
+            <flux:navlist.item icon="banknotes" :href="route('payment.method.index')"
                                :current="request()->routeIs('payment.method.index')"
                                wire:navigate>{{ __('Manage Payment Method') }}</flux:navlist.item>
         </flux:navlist.group>
         <flux:navlist.group :heading="__('Management Items ')" class="grid">
-            <flux:navlist.item icon="home" :href="route('items.index')" :current="request()->routeIs('items.index')"
+            <flux:navlist.item icon="shopping-bag" :href="route('items.index')" :current="request()->routeIs('items.index')"
                                wire:navigate>{{ __('Manage Items') }}</flux:navlist.item>
         </flux:navlist.group>
         <flux:navlist.group :heading="__('Management Sales ')" class="grid">
-            <flux:navlist.item icon="home" :href="route('sales.index')" :current="request()->routeIs('sales.index')"
+            <flux:navlist.item icon="chart-bar" :href="route('sales.index')" :current="request()->routeIs('sales.index')"
                                wire:navigate>{{ __('Manage Sales') }}</flux:navlist.item>
         </flux:navlist.group>
         <flux:navlist.group :heading="__('Management Users ')" class="grid">
-            <flux:navlist.item icon="home" :href="route('users.index')" :current="request()->routeIs('users.index')"
+            <flux:navlist.item icon="user-circle" :href="route('users.index')" :current="request()->routeIs('users.index')"
                                wire:navigate>{{ __('Manage Users System') }}</flux:navlist.item>
         </flux:navlist.group>
     </flux:navlist>

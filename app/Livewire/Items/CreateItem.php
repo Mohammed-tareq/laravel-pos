@@ -5,7 +5,6 @@ namespace App\Livewire\Items;
 use App\Models\Item;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
-use Filament\Actions\EditAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
@@ -16,32 +15,30 @@ use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-class EditItem extends Component implements HasActions, HasSchemas
+class CreateItem extends Component implements HasActions, HasSchemas
 {
     use InteractsWithActions;
     use InteractsWithSchemas;
 
-    public Item $record;
-
     public ?array $data = [];
 
-    public function mount(Item $item): void
+    public function mount(): void
     {
-        $this->record = $item;
-        $this->form->fill($this->record->attributesToArray());
+        $this->form->fill();
     }
 
     public function form(Schema $schema): Schema
     {
-
         return $schema
             ->components([
-                Section::make('Edit Item')
+                Section::make('Create Item')
                     ->schema([
                         TextInput::make('name')
-                            ->label('Item Name')
                             ->required()
-                        ,
+                            ->unique(),
+                        TextInput::make('sku')
+                            ->label('SKU')
+                            ->required(),
                         TextInput::make('qty')
                             ->required()
                             ->numeric(),
@@ -50,27 +47,32 @@ class EditItem extends Component implements HasActions, HasSchemas
                             ->numeric()
                             ->prefix('EGP'),
                         Toggle::make('status')
-                            ->label(' Is Active')
+                            ->label('Is Active')
+                            ->required()
                             ->inline(false)
-                            ->required(),
                     ])
-                    ->columns(2)
+                ->columns(2)
             ])
             ->statePath('data')
-            ->model($this->record);
+            ->model(Item::class);
     }
 
-    public function save()
+    public function create(): void
     {
         $data = $this->form->getState();
 
-        $this->record->update($data);
+        $record = Item::create($data);
 
+        $this->form->model($record)->saveRelationships();
+        Notification::make()
+            ->title('Item Create')
+            ->body('Item Created Successfully')
+            ->success()
+            ->send();
     }
-
 
     public function render(): View
     {
-        return view('livewire.items.edit-item');
+        return view('livewire.items.create-item');
     }
 }

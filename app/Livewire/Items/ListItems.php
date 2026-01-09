@@ -66,7 +66,10 @@ class ListItems extends Component implements HasActions, HasSchemas, HasTable
                 //
             ])
             ->headerActions([
-                //
+                Action::make('add')
+                    ->url(fn(): string => route('item.create'))
+                    ->label('Add Item')
+                    ->icon('heroicon-o-plus'),
             ])
             ->recordActions([
                 Action::make('delete')
@@ -82,7 +85,9 @@ class ListItems extends Component implements HasActions, HasSchemas, HasTable
                             ->success()
                     ),
                 Action::make('edit')
-                    ->url(fn(Item $record): string => route('item.update', $record)),
+                    ->url(fn(Item $record): string => route('item.update', $record))
+                    ->label('')
+                    ->icon('heroicon-o-pencil-square'),
 
             ])
             ->toolbarActions([

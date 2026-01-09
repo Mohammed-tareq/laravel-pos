@@ -1,9 +1,12 @@
 <?php
 
+use App\Livewire\Customers\CreateCustomer;
 use App\Livewire\Customers\EditCustomer;
 use App\Livewire\Customers\ListCustomers;
+use App\Livewire\Items\CreateItem;
 use App\Livewire\Items\EditItem;
 use App\Livewire\Items\ListItems;
+use App\Livewire\PaymentMethods\CreatePaymentMethod;
 use App\Livewire\PaymentMethods\EditPaymentMethod;
 use App\Livewire\PaymentMethods\ListPaymentMethods;
 use App\Livewire\Sales\ListSales;
@@ -11,6 +14,7 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Settings\TwoFactor;
+use App\Livewire\Users\CreateUser;
 use App\Livewire\Users\EditUser;
 use App\Livewire\Users\ListUsers;
 use Illuminate\Support\Facades\Route;
@@ -45,16 +49,19 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     //====================================== user   ==============================//
     Route::get('/manage-user' , ListUsers::class)->name('users.index');
+    Route::get('/user/create' , CreateUser::class)->name('user.create');
     Route::get('/edit/{user}/user' , EditUser::class)->name('user.update');
     //====================================== end user   ==============================//
 
     //======================================  items  ==============================//
     Route::get('/manage-item' , ListItems::class)->name('items.index');
+    Route::get('/item/create' , CreateItem::class)->name('item.create');
     Route::get('/edit/{item}/item' ,EditItem ::class)->name('item.update');
     //====================================== end items  ==============================//
 
     //====================================== customer   ==============================//
     Route::get('/manage-customer' , ListCustomers::class)->name('customers.index');
+    Route::get('/customer/create' , CreateCustomer::class)->name('customer.create');
     Route::get('/edit/{customer}/customer' , EditCustomer::class)->name('customer.update');
     //====================================== end customer   ==============================//
 
@@ -64,6 +71,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
     //====================================== payment method   ==============================//
     Route::get('/manage-payment-method' , ListPaymentMethods::class)->name('payment.method.index');
+    Route::get('/payment/create' , CreatePaymentMethod::class)->name('payment.method.create');
     Route::get('/edit/{payment}/payment-method' , EditPaymentMethod::class)->name('payment.method.update');
     //======================================  end payment method  ==============================//
 });

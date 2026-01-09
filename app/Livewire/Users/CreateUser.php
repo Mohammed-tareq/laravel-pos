@@ -8,7 +8,6 @@ use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Notifications\Notification;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
@@ -16,33 +15,36 @@ use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-class EditUser extends Component implements HasActions, HasSchemas
+class CreateUser extends Component implements HasActions, HasSchemas
 {
     use InteractsWithActions;
     use InteractsWithSchemas;
 
-    public User $record;
-
     public ?array $data = [];
 
-    public function mount(User $user): void
+    public function mount(): void
     {
-        $this->record = $user;
-        $this->form->fill($this->record->attributesToArray());
+        $this->form->fill();
     }
 
     public function form(Schema $schema): Schema
     {
         return $schema
             ->components([
-                Section::make('Edit User')
+                Section::make('Create User')
                     ->schema([
                         TextInput::make('name')
                             ->required(),
                         TextInput::make('email')
                             ->label('Email address')
                             ->email()
+                            ->unique()
                             ->required(),
+                        TextInput::make('password')
+                            ->password()
+                            ->revealable()
+                            ->required()
+                            ->unique(),
                         Select::make('role')
                             ->required()
                             ->options([
@@ -54,26 +56,23 @@ class EditUser extends Component implements HasActions, HasSchemas
                             ->required()
                             ->inline(false)
                     ])
-                    ->columns(2)
+                ->columns(2)
             ])
             ->statePath('data')
-            ->model($this->record);
+            ->model(User::class);
     }
 
-    public function save(): void
+    public function create(): void
     {
         $data = $this->form->getState();
 
-        $this->record->update($data);
-        Notification::make()
-            ->title('User Updated')
-            ->body('User Updated Successfully')
-            ->success()
-            ->send();
+        $record = User::create($data);
+
+        $this->form->model($record)->saveRelationships();
     }
 
     public function render(): View
     {
-        return view('livewire.users.edit-user');
+        return view('livewire.users.create-user');
     }
 }

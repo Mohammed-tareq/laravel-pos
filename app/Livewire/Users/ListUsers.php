@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Users;
 
-use App\Models\Customer;
 use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
@@ -11,6 +10,7 @@ use Filament\Actions\Contracts\HasActions;
 use Filament\Notifications\Notification;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -37,15 +37,21 @@ class ListUsers extends Component implements HasActions, HasSchemas, HasTable
                     ->searchable(),
                 TextColumn::make('role')
                     ->searchable(),
+                IconColumn::make('status')
+                    ->boolean(),
                 TextColumn::make('created_at')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                //
+                Action::make('add')
+                    ->url(fn(): string => route('user.create'))
+                    ->label('Add User')
+                    ->icon('heroicon-o-plus'),
             ])
             ->recordActions([
                 Action::make('delete')
@@ -60,6 +66,8 @@ class ListUsers extends Component implements HasActions, HasSchemas, HasTable
                             ->success()
                     ),
                 Action::make('edit')
+                    ->label('')
+                    ->icon('heroicon-o-pencil-square')
                     ->url(fn(User $user): string => route('user.update', $user)),
             ])
             ->toolbarActions([
