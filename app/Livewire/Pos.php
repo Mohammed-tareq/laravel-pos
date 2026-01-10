@@ -230,7 +230,6 @@ class Pos extends Component
                         ->label('Yes, Print Receipt')
                         ->url(route('sales.receipt', ['sale' => $sale->id]), shouldOpenInNewTab: true)
                         ->color('primary')
-                        // ->url(route('sales.receipt', $sale))
                         ->openUrlInNewTab(false)
                         ->extraAttributes([
                             'onclick' => 'event.preventDefault(); printReceipt(this.href);'
