@@ -25,19 +25,23 @@ class ListSales extends Component implements HasActions, HasSchemas, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query(fn (): Builder => Sale::query())
+            ->query(fn (): Builder => Sale::query()->with(['customer','paymentMethod']))
             ->columns([
-                TextColumn::make('customer_id')
-                    ->numeric()
+                TextColumn::make('customer.name')
+                    ->label('Customer Name')
+                    ->badge()
                     ->sortable(),
-                TextColumn::make('payment_method_id')
-                    ->numeric()
+                TextColumn::make('paymentMethod.name')
+                    ->badge()
+                    ->color('red')
                     ->sortable(),
                 TextColumn::make('total')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('discount')
                     ->numeric()
+                    ->badge()
+                    ->color('danger')
                     ->sortable(),
                 TextColumn::make('paid_amount')
                     ->numeric()

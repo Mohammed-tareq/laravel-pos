@@ -14,7 +14,7 @@ class SalesTableList extends TableWidget
     public function table(Table $table): Table
     {
         return $table
-            ->query(fn (): Builder => Sale::query()->with(['customer','paymentMethod',]))
+            ->query(fn (): Builder => Sale::query()->with(['customer','paymentMethod']))
             ->columns([
                 TextColumn::make('customer.name')
                     ->label('Customer Name')
