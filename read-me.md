@@ -16,3 +16,10 @@ feat: Introduce JavaScript components for handling modals, resizing, and chart u
 - Added features for product listing, cart management, checkout process, and dynamic calculations (subtotal, tax, discount, and total).
 - Integrated customer and payment method selection with real-time data updates.
 - Updated sidebar navigation and routes to include POS management.
+- feat: Add widgets, receipt printing, and image support for items
+
+- Added `SalesChart`, `SalesItemsChart`, and `DataList` widgets to dashboard.
+- Created `pdf.blade.php` template for receipt generation and printing.
+- Enhanced item functionalities with image upload, storage, and display in POS.
+- Updated item database schema to include `image` field and adjusted pricing precision.
+- Refined POS checkout process with receipt preview and dynamic printing option.
