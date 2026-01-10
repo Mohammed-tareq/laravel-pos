@@ -15,7 +15,8 @@ class Item extends Model
         'name',
         'price',
         'status',
-        'qty'
+        'qty',
+        'image'
     ];
 
     protected $guarded=['sku'];

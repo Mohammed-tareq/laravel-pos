@@ -16,7 +16,8 @@
                         <div class="p-4">
                             <div
                                     class="w-full h-32 bg-gray-200 dark:bg-neutral-700 rounded-lg mb-3 flex items-center justify-center text-gray-400">
-                                <span class="text-sm">Item Image</span>
+{{--                                <span class="text-sm">Item Image</span>--}}
+                                <img src="{{ asset('storage/items/'.$item->image) }}">
                             </div>
                             <h3 class="font-semibold text-gray-900 dark:text-gray-100 truncate">{{ $item->name }}</h3>
                             <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">SKU: {{ substr($item->sku,20) }}

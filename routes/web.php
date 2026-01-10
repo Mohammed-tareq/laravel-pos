@@ -77,4 +77,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     //======================================  end payment method  ==============================//
 
     Route::get('/Pos-management' , Pos::class)->name('pos.index');
+    Route::get('/sales/{sale}/receipt', function (\App\Models\Sale $sale) {
+        $sale->load(['salesItems.item', 'customer', 'paymentMethod']);
+        return view('pdf', ['records' => collect([$sale])]);
+    })->name('sales.receipt');
 });

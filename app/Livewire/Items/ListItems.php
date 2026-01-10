@@ -11,6 +11,7 @@ use Filament\Notifications\Notification;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -50,6 +51,12 @@ class ListItems extends Component implements HasActions, HasSchemas, HasTable
                 TextColumn::make('price')
                     ->money('EGP')
                     ->sortable(),
+                ImageColumn::make('image')
+                    ->label('Item Image')
+                    ->disk('items')
+                    ->height(60)
+                    ->circular(),
+
                 IconColumn::make('status')
                     ->boolean(),
                 TextColumn::make('created_at')

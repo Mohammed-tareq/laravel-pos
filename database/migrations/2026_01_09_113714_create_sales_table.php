@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('customer_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('payment_method_id')->nullable()->constrained()->nullOnDelete();
-            $table->decimal('total',5,2);
-            $table->decimal('discount',5,2)->nullable();
-            $table->decimal('paid_amount',5,2);
+            $table->decimal('total',10,2);
+            $table->decimal('discount',10,2)->nullable();
+            $table->decimal('paid_amount',10,2);
             $table->timestamps();
         });
     }

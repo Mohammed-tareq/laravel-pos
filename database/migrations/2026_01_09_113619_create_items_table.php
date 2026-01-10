@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->uuid('sku');
+            $table->string('image')->nullable();
             $table->integer('qty');
-            $table->decimal('price',5,2);
+            $table->decimal('price',10,2);
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

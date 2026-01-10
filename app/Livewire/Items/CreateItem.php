@@ -5,6 +5,7 @@ namespace App\Livewire\Items;
 use App\Models\Item;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
@@ -14,6 +15,7 @@ use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Illuminate\Support\Str;
 
 class CreateItem extends Component implements HasActions, HasSchemas
 {
@@ -36,9 +38,6 @@ class CreateItem extends Component implements HasActions, HasSchemas
                         TextInput::make('name')
                             ->required()
                             ->unique(),
-                        TextInput::make('sku')
-                            ->label('SKU')
-                            ->required(),
                         TextInput::make('qty')
                             ->required()
                             ->numeric(),
@@ -49,7 +48,19 @@ class CreateItem extends Component implements HasActions, HasSchemas
                         Toggle::make('status')
                             ->label('Is Active')
                             ->required()
-                            ->inline(false)
+                            ->inline(false),
+                        FileUpload::make('image')
+                            ->label('Image Item')
+                            ->disk('items')
+                            ->directory('/')
+                            ->image()
+                            ->maxFiles(1)
+                            ->visibility('public')
+                            ->preserveFilenames()
+                            ->required()
+                            ->getUploadedFileNameForStorageUsing(
+                                fn ($file) => str::uuid() . '.' . $file->extension()
+                            ),
                     ])
                 ->columns(2)
             ])
