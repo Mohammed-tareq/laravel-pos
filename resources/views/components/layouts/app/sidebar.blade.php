@@ -20,9 +20,14 @@
             <flux:navlist.item icon="user-group" :href="route('customers.index')"
                                :current="request()->routeIs('customers.index')"
                                wire:navigate>{{ __('Manage Customer') }}</flux:navlist.item>
+
             <flux:navlist.item icon="banknotes" :href="route('payment.method.index')"
                                :current="request()->routeIs('payment.method.index')"
                                wire:navigate>{{ __('Manage Payment Method') }}</flux:navlist.item>
+
+            <flux:navlist.item icon="clipboard-document-check" :href="route('pos.index')"
+                               :current="request()->routeIs('pos.index')"
+                               wire:navigate>{{ __('Manage P - O - S') }}</flux:navlist.item>
         </flux:navlist.group>
         <flux:navlist.group :heading="__('Management Items ')" class="grid">
             <flux:navlist.item icon="shopping-bag" :href="route('items.index')" :current="request()->routeIs('items.index')"

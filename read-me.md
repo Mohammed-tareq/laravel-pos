@@ -10,3 +10,9 @@ feat: Introduce JavaScript components for handling modals, resizing, and chart u
 - Enhanced list components with header actions, edit options, and toggleable columns.
 - Updated migrations and seeders for unique constraints and scalable seed data.
 - Refined sidebar navigation icons for better UI distinction.
+- feat: Add Livewire POS module with integrated UI and functionality
+
+- Introduced `Pos` Livewire component and associated Blade template for managing product sales.
+- Added features for product listing, cart management, checkout process, and dynamic calculations (subtotal, tax, discount, and total).
+- Integrated customer and payment method selection with real-time data updates.
+- Updated sidebar navigation and routes to include POS management.

@@ -9,6 +9,7 @@ use App\Livewire\Items\ListItems;
 use App\Livewire\PaymentMethods\CreatePaymentMethod;
 use App\Livewire\PaymentMethods\EditPaymentMethod;
 use App\Livewire\PaymentMethods\ListPaymentMethods;
+use App\Livewire\Pos;
 use App\Livewire\Sales\ListSales;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
@@ -74,4 +75,6 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/payment/create' , CreatePaymentMethod::class)->name('payment.method.create');
     Route::get('/edit/{payment}/payment-method' , EditPaymentMethod::class)->name('payment.method.update');
     //======================================  end payment method  ==============================//
+
+    Route::get('/Pos-management' , Pos::class)->name('pos.index');
 });
